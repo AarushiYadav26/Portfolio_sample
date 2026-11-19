@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal portfolio of Your Name — web developer building clean, accessible websites.">
+  <title>Your Name | Web Developer</title>
+  <style>
+    :root {
+      --navy: #0b1224;
+      --navy-soft: #111c33;
+      --panel: #15223b;
+      --orange: #ff8a3d;
+      --orange-light: #ffad75;
+      --text: #f4f6fb;
+      --muted: #aab5c8;
+      --line: rgba(255,255,255,.10);
+      --max-width: 1100px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      margin: 0;
+      background: var(--navy);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(var(--max-width), calc(100% - 40px)); margin-inline: auto; }
+    .accent { color: var(--orange); }
+    .site-header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(11,18,36,.88); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-wrap { min-height: 74px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -.04em; }
+    .logo span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--muted); font-size: .94rem; transition: color .2s; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--orange); }
+    .menu-toggle {
+      display: none; border: 1px solid var(--line); background: var(--panel);
+      color: var(--text); border-radius: 10px; padding: 8px 11px; cursor: pointer;
+    }
+    .hero { padding: 112px 0 105px; }
+    .hero-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: 56px; align-items: center; }
+    .eyebrow { color: var(--orange); font-weight: 700; letter-spacing: .13em; text-transform: uppercase; font-size: .78rem; }
+    h1 { font-size: clamp(2.8rem, 7vw, 5.4rem); line-height: 1.04; letter-spacing: -.065em; margin: 17px 0 22px; }
+    .hero p { color: var(--muted); max-width: 620px; font-size: 1.12rem; margin: 0 0 30px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 12px 19px; border-radius: 9px; font-weight: 750; transition: transform .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #1b1720; background: var(--orange); }
+    .btn-primary:hover { background: var(--orange-light); }
+    .btn-outline { border: 1px solid rgba(255,255,255,.22); color: var(--text); }
+    .btn-outline:hover { border-color: var(--orange); }
+    .hero-card {
+      background: linear-gradient(145deg, #1a2a49, #111b30);
+      border: 1px solid var(--line); border-radius: 24px; padding: 30px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.22); transform: rotate(2deg);
+    }
+    .avatar {
+      width: 100%; aspect-ratio: 1; border-radius: 18px; display: grid; place-items: center;
+      background: radial-gradient(circle at 30% 25%, #ffb27d, #f47b36 42%, #8e3d2c 100%);
+      color: #201525; font-size: clamp(4rem, 9vw, 7rem); font-weight: 900; letter-spacing: -.08em;
+    }
+    .hero-card small { display: block; color: var(--muted); margin-top: 18px; }
+    .hero-card strong { display: block; margin-top: 3px; font-size: 1.1rem; }
+    section { padding: 86px 0; }
+    .section-heading { margin-bottom: 36px; }
+    .section-heading h2 { font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.05em; margin: 7px 0 8px; }
+    .section-heading p { color: var(--muted); margin: 0; max-width: 620px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+    .about-copy p { color: var(--muted); margin-top: 0; }
+    .fact-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .fact { background: var(--navy-soft); border: 1px solid var(--line); padding: 18px; border-radius: 13px; }
+    .fact span { display: block; color: var(--orange); font-size: .78rem; font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
+    .fact strong { display: block; margin-top: 5px; }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .skill {
+      background: var(--navy-soft); border: 1px solid var(--line); border-radius: 13px;
+      padding: 19px; color: var(--text); font-weight: 700;
+    }
+    .skill span { display: block; color: var(--orange); font-size: 1.35rem; margin-bottom: 8px; }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project {
+      display: flex; flex-direction: column; background: var(--navy-soft);
+      border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+      transition: transform .22s, border-color .22s;
+    }
+    .project:hover { transform: translateY(-5px); border-color: rgba(255,138,61,.55); }
+    .project-art { min-height: 155px; display: grid; place-items: center; font-size: 3rem; background: linear-gradient(135deg, #21395c, #18243c); }
+    .project:nth-child(2) .project-art { background: linear-gradient(135deg, #53352f, #27233d); }
+    .project:nth-child(3) .project-art { background: linear-gradient(135deg, #254b4b, #1d2d46); }
+    .project-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+    .project h3 { margin: 0 0 8px; font-size: 1.15rem; }
+    .project p { color: var(--muted); font-size: .94rem; margin: 0 0 18px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; }
+    .tag { color: var(--orange-light); background: rgba(255,138,61,.10); padding: 4px 9px; border-radius: 99px; font-size: .76rem; }
+    .contact-panel {
+      display: flex; justify-content: space-between; align-items: center; gap: 30px;
+      background: linear-gradient(120deg, #172744, #111b30);
+      border: 1px solid var(--line); border-radius: 20px; padding: clamp(25px, 5vw, 48px);
+    }
+    .contact-panel h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); letter-spacing: -.05em; margin: 0 0 8px; }
+    .contact-panel p { color: var(--muted); margin: 0; max-width: 570px; }
+    footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: .88rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    @media (max-width: 800px) {
+      .hero { padding: 80px 0; }
+      .hero-grid { grid-template-columns: 1fr .65fr; gap: 25px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { gap: 28px; }
+    }
+    @media (max-width: 620px) {
+      .container { width: min(100% - 32px, var(--max-width)); }
+      .nav-wrap { min-height: 66px; }
+      .menu-toggle { display: inline-flex; align-items: center; gap: 8px; }
+      .nav-links {
+        display: none; position: absolute; top: 65px; left: 0; right: 0;
+        flex-direction: column; align-items: stretch; gap: 0; padding: 8px 16px 16px;
+        background: #0e172b; border-bottom: 1px solid var(--line);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 12px 4px; }
+      .hero { padding: 65px 0 72px; }
+      .hero-grid, .about-grid { grid-template-columns: 1fr; }
+      .hero-card { max-width: 260px; margin: 8px auto 0; transform: none; }
+      section { padding: 68px 0; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-art { min-height: 135px; }
+      .contact-panel { align-items: flex-start; flex-direction: column; }
+      .fact-list { gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav-wrap" aria-label="Main navigation">
+      <a class="logo" href="#home">YOUR<span>NAME</span>.</a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open navigation menu">
+        <span aria-hidden="true">☰</span> Menu
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Hello, I'm</div>
+          <h1>Your Name.<br><span class="accent">Web developer</span></h1>
+          <p>I create thoughtful, responsive websites that make the web feel simple. I'm learning, building, and turning ideas into useful digital experiences.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#projects">Explore my work <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-outline" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Profile card">
+          <div class="avatar" aria-hidden="true">YN</div>
+          <small>Currently focused on</small>
+          <strong>HTML · CSS · JavaScript</strong>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">A little about me</div>
+          <h2>Building for the <span class="accent">web.</span></h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-copy">
+            <p>I'm an aspiring web developer who enjoys bringing ideas to life in the browser. I care about clean layouts, accessible experiences, and websites that work beautifully on phones, tablets, and desktops.</p>
+            <p>I'm always curious, always practicing, and excited to collaborate on projects where I can learn something new and make a positive contribution.</p>
+          </div>
+          <div class="fact-list">
+            <div class="fact"><span>Based in</span><strong>Your City</strong></div>
+            <div class="fact"><span>Open to</span><strong>Projects & learning</strong></div>
+            <div class="fact"><span>Currently learning</span><strong>JavaScript</strong></div>
+            <div class="fact"><span>My approach</span><strong>Curious & thoughtful</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">What I work with</div>
+          <h2>My <span class="accent">skills.</span></h2>
+          <p>The tools and foundations I'm using to create better web experiences.</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill"><span>⌘</span>HTML5</div>
+          <div class="skill"><span>✳</span>CSS3</div>
+          <div class="skill"><span>▣</span>Responsive design</div>
+          <div class="skill"><span>✦</span>Accessibility basics</div>
+          <div class="skill"><span>⟨/⟩</span>JavaScript basics</div>
+          <div class="skill"><span>◈</span>Git & GitHub</div>
+          <div class="skill"><span>✎</span>UI fundamentals</div>
+          <div class="skill"><span>⌕</span>Problem solving</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">A few things I've made</div>
+          <h2>Featured <span class="accent">projects.</span></h2>
+          <p>Replace these sample projects with your own work, screenshots, and live links.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project">
+            <div class="project-art" aria-hidden="true">🛍️</div>
+            <div class="project-body">
+              <h3>Product landing page</h3>
+              <p>A clean landing page concept for a small online store, designed to make products easy to explore.</p>
+              <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Responsive</span></div>
+            </div>
+          </article>
+          <article class="project">
+            <div class="project-art" aria-hidden="true">☕</div>
+            <div class="project-body">
+              <h3>Local café website</h3>
+              <p>A welcoming café website concept with a menu, opening information, and clear contact details.</p>
+              <div class="tags"><span class="tag">HTML</span><span class="tag">CSS Grid</span><span class="tag">UI design</span></div>
+            </div>
+          </article>
+          <article class="project">
+            <div class="project-art" aria-hidden="true">📋</div>
+            <div class="project-body">
+              <h3>Task planner</h3>
+              <p>A simple task-planner interface concept focused on readable information and a distraction-free layout.</p>
+              <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <div>
+            <div class="eyebrow">Have a project in mind?</div>
+            <h2>Let's make something <span class="accent">great.</span></h2>
+            <p>I'm happy to hear about opportunities, collaborations, or just to talk about web development.</p>
+          </div>
+          <a class="btn btn-primary" href="mailto:hello@example.com">Email me <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Your Name. Made with care.</span>
+      <span>Designed & built with HTML and CSS.</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+      menuToggle.querySelector('span').textContent = isOpen ? '✕' : '☰';
+    });
+
+    // Close the mobile menu after a navigation link is selected.
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        menuToggle.querySelector('span').textContent = '☰';
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
